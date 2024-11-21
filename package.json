@@ -1,0 +1,41 @@
+{
+  "name": "nuxt-template",
+  "version": "1.0.0",
+  "private": false,
+  "type": "module",
+  "author": "carpe_diem",
+  "description": "A Nuxt3 Template",
+  "license": "MIT",
+  "main": "./nuxt.config.ts",
+  "scripts": {
+    "preinstall": "node ./scripts/preinstall.js",
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare",
+    "lint": "eslint --ext \".ts,.js,.vue\" --ignore-path .eslintignore .",
+    "lint:fix": "eslint --fix --ext \".ts,.js,.vue\" --ignore-path .eslintignore ."
+  },
+  "dependencies": {
+    "@pinia/nuxt": "^0.7.0",
+    "animate.css": "^4.1.1",
+    "nuxt": "^3.14.159",
+    "pinia": "^2.2.6",
+    "vue": "latest",
+    "vue-router": "latest"
+  },
+  "devDependencies": {
+    "@nuxtjs/eslint-config-typescript": "^12.1.0",
+    "@nuxtjs/eslint-module": "^4.1.0",
+    "@unocss/nuxt": "^0.64.1",
+    "eslint": "^8.52.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-prettier": "^5.0.1",
+    "prettier": "^3.0.3",
+    "sass": "^1.80.6",
+    "typescript": "^5.2.2",
+    "unocss": "^0.64.1",
+    "vue-tsc": "^2.1.10"
+  }
+}
