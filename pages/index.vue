@@ -20,6 +20,8 @@ console.log('🚀 ~ exampleStore:', exampleStore.count)
 const { awesome } = useAppConfig()
 definePageMeta({ layout: 'page' })
 useHead({ titleTemplate: '首页', title: awesome?.name || 'text' })
+
+console.log(import.meta.env, 'import.meta.env')
 </script>
 
 <style scoped></style>

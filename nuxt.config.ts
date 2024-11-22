@@ -13,6 +13,26 @@ export default defineNuxtConfig({
   // app config
   app: {
     // global transition
+    head: {
+      title: process.env.NUXT_PUBLIC_TITLE,
+      meta: [
+        { charset: 'utf-8' },
+        {
+          name: 'viewport',
+          content:
+            'width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no'
+        },
+        { name: 'keywords', content: 'nuxt3, template' },
+        {
+          name: 'description',
+          content: '春花，秋月，夏日，冬雪。你若盛开，清风自来。心若浮沉，浅笑安然。'
+        },
+        { name: 'format-detection', content: 'telephone=no' },
+        // pc 等比例缩放
+        { name: 'viewport', content: 'user-scalable=yes' }
+      ],
+      noscript: [{ children: 'JavaScript is required' }]
+    },
     // pageTransition: 定义页面切换时的过渡效果。
     pageTransition: { name: 'page', mode: 'out-in' },
     // layoutTransition: 定义布局切换时的过渡效果。
@@ -49,12 +69,22 @@ export default defineNuxtConfig({
   // css
   css: [resolve('./assets/scss/variables.scss'), resolve('./assets/scss/app.scss')],
 
-  // devtools
-  devtools: { enabled: true },
-
   // module::pinia
   // 在ts.config.ts中配置pinia
   pinia: {
     storesDirs: ['~/stores/**', '#/stores/**', '@/stores/**']
-  }
+  },
+
+  // 配置API
+  runtimeConfig: {
+    public: {
+      title: import.meta.env.NUXT_PUBLIC_TITLE,
+      api: {
+        baseUrl: import.meta.env.NUXT_PUBLIC_API_BASEURL
+      }
+    }
+  },
+
+  // devtools
+  devtools: { enabled: true }
 })
