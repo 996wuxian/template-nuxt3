@@ -1,15 +1,25 @@
 <template>
-  <div class="container">1231234123123</div>
+  <div class="container">
+    content
+
+    <div @click="toAbout">to about</div>
+  </div>
 </template>
 
 <script setup lang="ts">
 import { useExample } from '@/stores/use-example'
+
+const router = useRouter()
+const toAbout = () => {
+  router.push('/about')
+}
+
 const exampleStore = useExample()
 console.log('🚀 ~ exampleStore:', exampleStore.count)
 
 const { awesome } = useAppConfig()
 definePageMeta({ layout: 'page' })
-useHead({ titleTemplate: '', title: awesome?.name || 'text' })
+useHead({ titleTemplate: '首页', title: awesome?.name || 'text' })
 </script>
 
 <style scoped></style>
