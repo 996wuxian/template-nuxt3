@@ -17,19 +17,25 @@ export default defineNuxtConfig({
       title: process.env.NUXT_PUBLIC_TITLE,
       meta: [
         { charset: 'utf-8' },
-        {
-          name: 'viewport',
-          content:
-            'width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no'
-        },
         { name: 'keywords', content: 'nuxt3, template' },
         {
           name: 'description',
           content: '春花，秋月，夏日，冬雪。你若盛开，清风自来。心若浮沉，浅笑安然。'
         },
+        // 禁止手机号码自动识别
         { name: 'format-detection', content: 'telephone=no' },
         // pc 等比例缩放
-        { name: 'viewport', content: 'user-scalable=yes' }
+        { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+        { name: 'renderer', content: 'webkit' },
+        { name: 'author', content: '1640551913@qq.com' }
+      ],
+
+      link: [
+        // { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+        // {
+        //   rel: 'stylesheet',
+        //   href: 'https://xxx.css'
+        // }
       ],
       noscript: [{ children: 'JavaScript is required' }]
     },
@@ -73,6 +79,22 @@ export default defineNuxtConfig({
   // 在ts.config.ts中配置pinia
   pinia: {
     storesDirs: ['~/stores/**', '#/stores/**', '@/stores/**']
+  },
+
+  routeRules: {
+    '/': { redirect: '/' }
+    // 主页在构建时预渲染
+    // '/index': {prerender: true},
+    // 产品页面按需生成，后台自动重新验证
+    // '/products/**': { swr: 3600 },
+    // 博客文章按需生成，直到下一次部署前持续有效
+    // '/blog/post/**': { isr: true },
+    // 管理仪表板仅在客户端渲染
+    // '/admin/**': { ssr: false },
+    // 在API路由上添加cors头
+    // '/api/**': { cors: true }
+    // 跳转旧的URL
+    // '/old-page': { redirect: '/new-page' }
   },
 
   // 配置API
