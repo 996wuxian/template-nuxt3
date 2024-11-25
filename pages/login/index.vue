@@ -1,9 +1,8 @@
 <template>
-  <div class="login-container">
-    <div class="login-content">
-      <h1 class="title">Sealos Cloud</h1>
-
-      <div class="login-form">
+  <div class="login">
+    <div class="login__content">
+      <h1 class="login__title">Carper Diem</h1>
+      <div class="login__form">
         <div class="phone-input">
           <span class="area-code">+86</span>
           <input type="text" placeholder="手机号" />
@@ -15,7 +14,7 @@
         </div>
 
         <div class="agreement">
-          <input type="checkbox" id="agree" />
+          <input id="agree" type="checkbox" />
           <label for="agree">
             我已阅读并同意
             <a href="#">服务协议</a> 和
@@ -38,30 +37,31 @@
 // 这里可以添加需要的逻辑
 </script>
 
-<style scoped>
-.login-container {
-  width: 100vw;
-  height: 100vh;
+<style scoped lang="scss">
+.login {
+  @apply w-100vw h-100vh flex-center;
   background: url('@/assets/imgs/bg-blue.svg') no-repeat center center;
   background-size: cover;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
-.login-content {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(10px);
-  padding: 40px;
-  border-radius: 8px;
-  width: 400px;
+.login__content {
+  @apply p-40px b-rd-8px w-400px flex flex-col;
 }
 
-.title {
+.login__title {
   color: white;
   text-align: center;
   font-size: 32px;
   margin-bottom: 40px;
+  font-weight: 700;
+}
+
+.login__form {
+  @apply p-40px b-rd-10px;
+  padding: 30px 48px;
+  box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(100px);
+  border-radius: 12px;
 }
 
 .phone-input,
