@@ -1,40 +1,39 @@
+import { ClientOnly } from '../../.nuxt/components';
 <template>
   <div class="login">
     <div class="login__content">
       <h1 class="login__title">Carper Diem</h1>
       <div class="login__form">
-        <div class="phone-input">
-          <span class="area-code">+86</span>
-          <input type="text" placeholder="手机号" />
-          <span class="verify-link">获取验证码</span>
+        <div class="login__input">
+          <i i-solar-letter-unread-broken></i>
+          <input placeholder="邮箱" type="text" name="text" class="input" />
         </div>
 
-        <div class="verify-input">
-          <input type="text" placeholder="6位验证码" />
+        <div class="login__input">
+          <i i-solar-shield-keyhole-broken></i>
+          <input placeholder="验证码" type="text" name="text" class="input" />
         </div>
 
-        <div class="agreement">
-          <input id="agree" type="checkbox" />
-          <label for="agree">
-            我已阅读并同意
-            <a href="#">服务协议</a> 和
-            <a href="#">隐私政策</a>
-          </label>
-        </div>
+        <button class="login__btn" @click="login">登录</button>
 
-        <button class="login-btn">登录</button>
-
-        <div class="social-login">
-          <!-- <a href="#"><img src="[GitHub图标]" alt="GitHub" /></a> -->
-          <!-- <a href="#"><img src="[微信图标]" alt="WeChat" /></a> -->
-        </div>
+        <ClientOnly>
+          <div class="login__third">
+            <div>
+              <svg-icon name="github"></svg-icon>
+            </div>
+          </div>
+        </ClientOnly>
       </div>
     </div>
   </div>
 </template>
 
-<script setup>
-// 这里可以添加需要的逻辑
+<script setup lang="ts">
+const router = useRouter()
+
+const login = () => {
+  router.push('/')
+}
 </script>
 
 <style scoped lang="scss">
@@ -45,85 +44,58 @@
 }
 
 .login__content {
-  @apply p-40px b-rd-8px w-400px flex flex-col;
+  @apply p-40px b-rd-8px w-300px flex flex-col;
 }
 
 .login__title {
-  color: white;
-  text-align: center;
-  font-size: 32px;
-  margin-bottom: 40px;
-  font-weight: 700;
+  @apply color-white text-center text-32px mb-40px font-700;
+  text-shadow: rgba(0, 0, 0, 0.3) 0px 2px 6px;
 }
 
 .login__form {
-  @apply p-40px b-rd-10px;
-  padding: 30px 48px;
+  @apply p-40px b-rd-12px flex flex-col gap-20px;
   box-shadow: 0px 15px 20px rgba(0, 0, 0, 0.2);
   backdrop-filter: blur(100px);
-  border-radius: 12px;
 }
 
-.phone-input,
-.verify-input {
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 4px;
-  padding: 10px;
-  margin-bottom: 15px;
-  display: flex;
-  align-items: center;
+.login__input {
+  @apply w-100% relative;
+
+  & > i {
+    @apply flex absolute left-10px top-50% z-999;
+    transform: translateY(-50%);
+  }
+
+  & > input {
+    @apply outline-none w-[calc(100%-45px)]  pl-35px h-35px b-rd-5px bg-#b7cfe3;
+    border: 1px solid #b7cfe3;
+    transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+    box-shadow: 0px 0px 20px -18px;
+
+    &:hover {
+      box-shadow: 0px 0px 20px -17px;
+    }
+
+    &:active {
+      transform: scale(0.95);
+    }
+  }
 }
 
-.area-code {
-  color: white;
-  margin-right: 10px;
+.login__btn {
+  @apply mt-10px py-10px b-none outline-none bg-#151515 color-#eee b-rd-7px font-600 cursor-pointer;
+  transition: all 0.25s ease-out;
+
+  &:hover {
+    transform: translateY(-3px);
+  }
 }
 
-input {
-  background: transparent;
-  border: none;
-  color: white;
-  flex: 1;
-}
+.login__third {
+  @apply flex justify-center items-center;
 
-input::placeholder {
-  color: rgba(255, 255, 255, 0.7);
-}
-
-.verify-link {
-  color: #4a90e2;
-  cursor: pointer;
-}
-
-.agreement {
-  color: white;
-  margin: 15px 0;
-}
-
-.agreement a {
-  color: #4a90e2;
-  text-decoration: none;
-}
-
-.login-btn {
-  width: 100%;
-  background: #000;
-  color: white;
-  border: none;
-  padding: 12px;
-  border-radius: 4px;
-  cursor: pointer;
-  margin: 20px 0;
-}
-
-.social-login {
-  display: flex;
-  justify-content: center;
-  gap: 20px;
-}
-
-.social-login img {
-  width: 24px;
-  height: 24px;
+  & > div {
+    @apply p-6px bg-#AFBDD7 b-rd-50% cursor-pointer;
+  }
 }
 </style>

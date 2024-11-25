@@ -18,8 +18,10 @@
     "lint:fix": "eslint --fix --ext \".ts,.js,.vue\" --ignore-path .eslintignore ."
   },
   "dependencies": {
+    "@iconify-json/solar": "^1.2.1",
     "@pinia/nuxt": "^0.7.0",
     "@types/nprogress": "^0.2.3",
+    "@unocss/preset-icons": "^0.64.1",
     "animate.css": "^4.1.1",
     "nprogress": "^0.2.0",
     "nuxt": "^3.14.159",
@@ -39,6 +41,7 @@
     "sass": "^1.80.6",
     "typescript": "^5.2.2",
     "unocss": "^0.64.1",
+    "vite-plugin-svg-icons": "^2.0.1",
     "vue-tsc": "^2.1.10"
   }
 }

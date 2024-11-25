@@ -1,4 +1,7 @@
+import path from 'path'
 import { createResolver } from '@nuxt/kit'
+import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
+
 const { resolve } = createResolver(import.meta.url)
 
 export default defineNuxtConfig({
@@ -125,6 +128,14 @@ export default defineNuxtConfig({
 
   // devtools
   devtools: { enabled: true },
+
+  vite: {
+    plugins: [
+      createSvgIconsPlugin({
+        iconDirs: [path.resolve(process.cwd(), 'assets/svg')]
+      })
+    ]
+  },
 
   // srcDir: 'src/',
 
