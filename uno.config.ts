@@ -1,4 +1,5 @@
 import { defineConfig } from 'unocss'
+import transformerDirectives from '@unocss/transformer-directives'
 
 export default defineConfig({
   content: {
@@ -6,6 +7,8 @@ export default defineConfig({
       exclude: ['node_modules', 'dist']
     }
   },
+
+  transformers: [transformerDirectives()],
 
   safelist: [
     'i-solar-home-smile-bold',
