@@ -2,6 +2,11 @@ import { createResolver } from '@nuxt/kit'
 const { resolve } = createResolver(import.meta.url)
 
 export default defineNuxtConfig({
+  devServer: {
+    // host: '127.0.0.1', // 项目运行的ip
+    // port: 8800 // 项目运行的端口号
+  },
+
   experimental: {
     localLayerAliases: true // 假设你有一个本地层目录 ./layers/my-layer，你可以通过 localLayerAliases 为这个层定义一个别名：
   },
@@ -45,6 +50,17 @@ export default defineNuxtConfig({
     layoutTransition: { name: 'layout', mode: 'out-in' }
   },
 
+  imports: {
+    dirs: [
+      // 扫描顶级模块
+      'composables',
+      // ... 或扫描带有特定名称和文件扩展名的一级嵌套模块
+      'composables/*/index.{ts,js,mjs,mts}',
+      // ... 或扫描给定目录中的所有模块
+      'composables/**'
+    ]
+  },
+
   typescript: {
     strict: true,
     typeCheck: true
@@ -55,8 +71,29 @@ export default defineNuxtConfig({
     // chore
     '@nuxtjs/eslint-module',
     '@pinia/nuxt',
-    '@unocss/nuxt'
+    '@unocss/nuxt',
+    // @nuxt/content 模块提供了一个强大的内容管理系统，支持 Markdown、JSON、YAML 等格式的内容管理、查询、渲染和搜索。通过在 nuxt.config.ts 中配置 content，你可以定制内容的高亮、Markdown 处理方式、文档驱动模式和内容监听方式，从而更好地满足项目的需求。
+    '@nuxt/content'
   ],
+
+  content: {
+    highlight: {
+      langs: [
+        'json',
+        'js',
+        'ts',
+        'html',
+        'css',
+        'vue',
+        'shell',
+        'mdc',
+        'md',
+        'yaml',
+        'typescript',
+        'javascript'
+      ]
+    }
+  },
 
   // 配置components
   // components: [
@@ -108,5 +145,15 @@ export default defineNuxtConfig({
   },
 
   // devtools
-  devtools: { enabled: true }
+  devtools: { enabled: true },
+
+  srcDir: 'src/',
+
+  // 打包配置
+  build: {
+    // transpile:
+    //   process.env.NODE_ENV === 'production'
+    //     ? ['naive-ui', 'vueuc', '@css-render/vue3-ssr', '@juggle/resize-observer']
+    //     : ['@juggle/resize-observer']
+  }
 })
