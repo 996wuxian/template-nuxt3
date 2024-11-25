@@ -71,29 +71,8 @@ export default defineNuxtConfig({
     // chore
     '@nuxtjs/eslint-module',
     '@pinia/nuxt',
-    '@unocss/nuxt',
-    // @nuxt/content 模块提供了一个强大的内容管理系统，支持 Markdown、JSON、YAML 等格式的内容管理、查询、渲染和搜索。通过在 nuxt.config.ts 中配置 content，你可以定制内容的高亮、Markdown 处理方式、文档驱动模式和内容监听方式，从而更好地满足项目的需求。
-    '@nuxt/content'
+    '@unocss/nuxt'
   ],
-
-  content: {
-    highlight: {
-      langs: [
-        'json',
-        'js',
-        'ts',
-        'html',
-        'css',
-        'vue',
-        'shell',
-        'mdc',
-        'md',
-        'yaml',
-        'typescript',
-        'javascript'
-      ]
-    }
-  },
 
   // 配置components
   // components: [
@@ -147,7 +126,7 @@ export default defineNuxtConfig({
   // devtools
   devtools: { enabled: true },
 
-  srcDir: 'src/',
+  // srcDir: 'src/',
 
   // 打包配置
   build: {
