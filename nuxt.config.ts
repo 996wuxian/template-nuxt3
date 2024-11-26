@@ -77,6 +77,7 @@ export default defineNuxtConfig({
     // chore
     '@nuxtjs/eslint-module',
     '@pinia/nuxt',
+    'pinia-plugin-persistedstate/nuxt',
     '@unocss/nuxt',
     'nuxtjs-naive-ui'
   ],

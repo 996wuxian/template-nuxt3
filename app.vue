@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import 'animate.css'
-// import type { GlobalTheme } from 'naive-ui'
-import { darkTheme } from 'naive-ui'
+import { darkTheme, lightTheme } from 'naive-ui'
+import { useThemeStore } from '@/stores/theme'
 
 // 来自app.config.ts
 const { awesome } = useAppConfig()
@@ -10,18 +10,19 @@ useHead({
   titleTemplate: `%s - ${awesome.name}`
 })
 
-// const theme = ref<GlobalTheme | null>(null)
+const themeStore = useThemeStore()
+const theme = computed(() => themeStore.theme)
+
+onMounted(() => {
+  window.document.documentElement.setAttribute('data-theme', themeStore.theme)
+})
 </script>
 
 <template>
-  <n-config-provider :theme="darkTheme">
-    <Body
-      class="antialiased duration-300 transition-colors text-gray-800 dark:text-gray-200 bg-white dark:bg-gray-950"
-    >
-      <NuxtLayout>
-        <NuxtLoadingIndicator />
-        <NuxtPage />
-      </NuxtLayout>
-    </Body>
+  <n-config-provider :theme="theme === 'dark' ? darkTheme : lightTheme">
+    <NuxtLayout>
+      <NuxtLoadingIndicator />
+      <NuxtPage />
+    </NuxtLayout>
   </n-config-provider>
 </template>

@@ -1,7 +1,7 @@
 <template>
   <div class="page">
     <div class="fixed right-10px top-10px">
-      <CommonSwitch />
+      <CommonSwitch v-if="themeValue" v-model="themeValue" />
     </div>
     <div class="content">
       <div class="content__left">
@@ -13,6 +13,21 @@
 
 <script setup lang="ts">
 import Todo from './components/Todo.vue'
+import { useThemeStore } from '@/stores/theme'
+const useTheme = useThemeStore()
+
+const themeValue = ref()
+
+watch(
+  () => themeValue.value,
+  val => {
+    useTheme.setTheme(val)
+  }
+)
+
+onMounted(() => {
+  themeValue.value = useTheme.theme
+})
 
 const { awesome } = useAppConfig()
 definePageMeta({ layout: 'page' })

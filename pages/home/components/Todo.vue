@@ -1,5 +1,5 @@
 <template>
-  <div class="todo">
+  <div class="todo theme-page">
     <div class="todo__title">
       <i i-solar-checklist-broken></i>
       Todo
@@ -169,7 +169,7 @@ onMounted(() => {
 }
 
 .todo__title {
-  @apply flex color-#eee gap-10px font-700 items-center;
+  @apply flex  color-#eee gap-10px font-700 items-center;
 }
 
 .todo__date {

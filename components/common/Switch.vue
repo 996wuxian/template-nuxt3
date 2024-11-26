@@ -1,6 +1,7 @@
 <template>
   <div class="switch">
-    <input type="checkbox" name="toggle" />
+    <input :checked="modelValue === 'light'" type="checkbox" name="toggle" @input="handleInput" />
+
     <label for="toggle">
       <i class="bulb">
         <span class="bulb-center"></span>
@@ -20,7 +21,17 @@
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const modelValue = defineModel('modelValue', { type: String })
+
+const handleInput = () => {
+  if (modelValue.value === 'light') {
+    modelValue.value = 'dark'
+  } else {
+    modelValue.value = 'light'
+  }
+}
+</script>
 
 <style scoped>
 .switch {
