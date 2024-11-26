@@ -1,4 +1,3 @@
-import { ClientOnly } from '../../.nuxt/components';
 <template>
   <div class="login">
     <div class="login__content">
@@ -44,7 +43,7 @@ const login = () => {
 }
 
 .login__content {
-  @apply p-40px b-rd-8px w-300px flex flex-col;
+  @apply p-40px b-rd-8px w-300px min-w-300px flex flex-col;
 }
 
 .login__title {

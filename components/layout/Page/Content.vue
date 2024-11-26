@@ -1,5 +1,5 @@
 <template>
-  <div class="flex container bg-amber">
+  <div class="flex container">
     <slot />
   </div>
 </template>

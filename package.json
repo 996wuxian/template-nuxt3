@@ -23,8 +23,10 @@
     "@types/nprogress": "^0.2.3",
     "@unocss/preset-icons": "^0.64.1",
     "animate.css": "^4.1.1",
+    "naive-ui": "^2.40.2",
     "nprogress": "^0.2.0",
     "nuxt": "^3.14.159",
+    "nuxtjs-naive-ui": "^1.0.2",
     "pinia": "^2.2.6",
     "vue": "latest",
     "vue-router": "latest"
@@ -41,6 +43,8 @@
     "sass": "^1.80.6",
     "typescript": "^5.2.2",
     "unocss": "^0.64.1",
+    "unplugin-auto-import": "^0.18.5",
+    "unplugin-vue-components": "^0.27.4",
     "vite-plugin-svg-icons": "^2.0.1",
     "vue-tsc": "^2.1.10"
   }

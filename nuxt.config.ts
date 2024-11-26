@@ -1,6 +1,9 @@
 import path from 'path'
 import { createResolver } from '@nuxt/kit'
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
+import AutoImport from 'unplugin-auto-import/vite'
+import Components from 'unplugin-vue-components/vite'
+import { NaiveUiResolver } from 'unplugin-vue-components/resolvers'
 
 const { resolve } = createResolver(import.meta.url)
 
@@ -74,7 +77,8 @@ export default defineNuxtConfig({
     // chore
     '@nuxtjs/eslint-module',
     '@pinia/nuxt',
-    '@unocss/nuxt'
+    '@unocss/nuxt',
+    'nuxtjs-naive-ui'
   ],
 
   // 配置components
@@ -101,7 +105,7 @@ export default defineNuxtConfig({
   },
 
   routeRules: {
-    // '/': { redirect: '/' }
+    '/': { redirect: '/home' }
     // 主页在构建时预渲染
     // '/index': {prerender: true},
     // 产品页面按需生成，后台自动重新验证
@@ -131,6 +135,16 @@ export default defineNuxtConfig({
 
   vite: {
     plugins: [
+      AutoImport({
+        imports: [
+          {
+            'naive-ui': ['useDialog', 'useMessage', 'useNotification', 'useLoadingBar']
+          }
+        ]
+      }),
+      Components({
+        resolvers: [NaiveUiResolver()]
+      }),
       createSvgIconsPlugin({
         iconDirs: [path.resolve(process.cwd(), 'assets/svg')]
       })
