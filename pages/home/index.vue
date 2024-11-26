@@ -1,5 +1,8 @@
 <template>
   <div class="page">
+    <div class="fixed right-10px top-10px">
+      <CommonSwitch />
+    </div>
     <div class="content">
       <div class="content__left">
         <Todo />
@@ -24,7 +27,7 @@ useHead({ titleTemplate: '首页', title: awesome?.name || 'text' })
 }
 
 .content {
-  @apply w-90% h-[calc(100%-50px)] flex pt-50px;
+  @apply w-100% h-[calc(100%-50px)] flex pt-50px;
 }
 
 .content__left {

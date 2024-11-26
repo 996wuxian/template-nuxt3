@@ -36,7 +36,7 @@
       </div>
     </div>
     <div class="todo__list">
-      <CommonEmpty v-if="todoList.length === 0" text="暂无待办事项" />
+      <CommonEmpty v-if="todoList.length === 0" text="待办事项" />
       <div class="todo__items">
         <div v-for="item in todoList" :key="item.id" class="todo__item"></div>
       </div>
@@ -49,6 +49,8 @@
 </template>
 
 <script setup lang="ts">
+import gsap from 'gsap'
+
 interface TodoItem {
   id: number
   title: string
@@ -135,6 +137,8 @@ const selectDate = (date: number) => {
 
 // 添加触摸滑动功能
 onMounted(() => {
+  gsap.to('.todo', { duration: 1, x: '20%', opacity: 1 })
+
   if (!slider.value) return
 
   let startX = 0
@@ -161,6 +165,7 @@ onMounted(() => {
   flex: 1 1 0%;
   background: rgba(22, 30, 40, 0.35);
   backdrop-filter: blur(80px) saturate(150%);
+  opacity: 0;
 }
 
 .todo__title {
