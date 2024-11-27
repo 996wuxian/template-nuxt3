@@ -38,38 +38,151 @@
     <div class="todo__list">
       <CommonEmpty v-if="todoList.length === 0" text="待办事项" />
       <div class="todo__items">
-        <div v-for="item in todoList" :key="item.id" class="todo__item"></div>
+        <div
+          v-for="item in todoList"
+          :key="item.id"
+          class="todo__item todoBg animate__animated"
+          :class="item.enter ? 'animate__fadeInLeft' : 'animate__fadeOutLeft'"
+        >
+          <div>
+            <div class="mt-2px">
+              <label class="todo__checkbox">
+                <input type="checkbox" @change="handleCheck(item)" />
+                <svg viewBox="0 0 64 64" height="15px" width="15px">
+                  <path
+                    d="M 0 16 V 56 A 8 8 90 0 0 8 64 H 56 A 8 8 90 0 0 64 56 V 8 A 8 8 90 0 0 56 0 H 8 A 8 8 90 0 0 0 8 V 16 L 32 48 L 64 16 V 8 A 8 8 90 0 0 56 0 H 8 A 8 8 90 0 0 0 8 V 56 A 8 8 90 0 0 8 64 H 56 A 8 8 90 0 0 64 56 V 16"
+                    pathLength="575.0541381835938"
+                    class="path"
+                  ></path>
+                </svg>
+              </label>
+            </div>
+            <n-collapse arrow-placement="right">
+              <n-collapse-item
+                :disabled="item.status"
+                title="todo"
+                name="1"
+                style="--n-title-text-color: #eee; --n-arrow-color: #eee"
+              >
+                <div class="color-#eee">可以</div>
+              </n-collapse-item>
+            </n-collapse>
+          </div>
+
+          <i i-solar-pen-2-broken @click="showModal"></i>
+
+          <n-popconfirm
+            :show-icon="false"
+            negative-text="取消"
+            positive-text="确认"
+            @positive-click="deleteTodo(item)"
+          >
+            <template #trigger>
+              <i i-solar-trash-bin-minimalistic-2-broken></i>
+            </template>
+            是否确认删除?
+          </n-popconfirm>
+        </div>
       </div>
 
       <div class="todo__btn" @click="add">
+        <div class="flex flex-col gap-10px">
+          <span>总完成 : 20</span>
+          <span>未完成 : 10</span>
+        </div>
         <i i-solar-traffic-economy-broken></i>
       </div>
     </div>
   </div>
+
+  <n-modal v-model:show="editModalVisible">
+    <n-card
+      style="width: 600px"
+      title="修改"
+      :bordered="false"
+      size="small"
+      role="dialog"
+      aria-modal="true"
+    >
+      <template #header-extra>
+        <i
+          i-solar-close-circle-broken
+          class="cursor-pointer w-20px h-20px"
+          @click="editModalVisible = false"
+        >
+        </i>
+      </template>
+      <n-form ref="formRef" inline :label-width="80" :model="formData">
+        <n-grid :cols="24" :x-gap="24">
+          <n-form-item-gi :span="24" label="标题" path="title">
+            <n-input v-model:value="formData.title" placeholder="请输入" />
+          </n-form-item-gi>
+          <n-form-item-gi :span="24" label="内容" path="content">
+            <n-input
+              v-model:value="formData.content"
+              placeholder="请输入"
+              type="textarea"
+              :autosize="{
+                minRows: 3,
+                maxRows: 5
+              }"
+            />
+          </n-form-item-gi>
+        </n-grid>
+      </n-form>
+
+      <template #footer>
+        <div class="text-right">
+          <n-button>确认</n-button>
+        </div>
+      </template>
+    </n-card>
+  </n-modal>
 </template>
 
 <script setup lang="ts">
 import gsap from 'gsap'
 
 interface TodoItem {
-  id: number
-  title: string
-  content: string
-  createdAt: string
-  status: number
+  id?: number
+  title?: string
+  content?: string
+  createdAt?: string
+  status?: boolean
+  enter?: boolean
 }
 
 const todoList = ref<TodoItem[]>([])
 
 const add = () => {
   todoList.value.push({
-    id: 1,
+    id: todoList.value.length + 1,
     title: '测试',
     content: '测试',
     createdAt: '2023-05-01',
-    status: 1
+    status: false,
+    enter: true
   })
 }
+
+const handleCheck = (item: TodoItem) => {
+  item.status = !item.status
+}
+
+const deleteTodo = (item: TodoItem) => {
+  item.enter = false
+  setTimeout(() => {
+    todoList.value = todoList.value.filter(_item => _item.id !== item.id)
+  }, 500)
+}
+
+const editModalVisible = ref(false)
+
+const showModal = () => {
+  editModalVisible.value = true
+}
+
+const formData = ref<TodoItem>({})
 
 const slider = ref<HTMLElement | null>(null)
 const selectedDate = ref(new Date().getDate())
@@ -161,7 +274,7 @@ onMounted(() => {
 
 <style scoped lang="scss">
 .todo {
-  @apply flex flex-col p-10px b-rd-8px min-w-230px pb-20px;
+  @apply flex flex-col p-10px b-rd-8px min-w-250px pb-20px;
   flex: 1 1 0%;
   background: rgba(22, 30, 40, 0.35);
   backdrop-filter: blur(80px) saturate(150%);
@@ -255,8 +368,47 @@ onMounted(() => {
   @apply mt-10px;
 }
 
+.todo__items {
+  @apply flex flex-col gap-10px max-h-200px overflow-auto;
+  user-select: none;
+}
+
+.todo__item {
+  @apply flex color-#eee justify-between b-rd-8px;
+  padding: 8px 10px;
+  background-color: var(-todoBg);
+
+  & > div {
+    @apply flex color-#eee gap-10px w-100%;
+
+    &:deep() {
+      .n-collapse-item-arrow {
+        margin-left: auto !important;
+        margin-top: 2px;
+      }
+    }
+  }
+
+  i {
+    @apply ml-10px mt-3px cursor-pointer w-20px h-20px;
+    transition: all 0.3s;
+
+    &:nth-child(2) {
+      &:hover {
+        @apply color-#2A3347;
+      }
+    }
+
+    &:nth-child(3) {
+      &:hover {
+        @apply color-red;
+      }
+    }
+  }
+}
+
 .todo__btn {
-  @apply w-30px h-30px mt-20px b-rd-10px ml-auto cursor-pointer flex;
+  @apply w-100% mt-20px b-rd-10px cursor-pointer flex justify-between items-center text-14px;
   box-shadow: 0 2px 10px rgba(30, 93, 164, 0.2);
 
   i {
@@ -268,5 +420,37 @@ onMounted(() => {
       transition: all 0.3s;
     }
   }
+}
+
+/* From Uiverse.io by SelfMadeSystem */
+.todo__checkbox {
+  cursor: pointer;
+}
+
+.todo__checkbox input {
+  display: none;
+}
+
+.todo__checkbox svg {
+  overflow: visible;
+}
+
+.todo__checkbox .path {
+  fill: none;
+  stroke: white;
+  stroke-width: 6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition:
+    stroke-dasharray 0.5s ease,
+    stroke-dashoffset 0.5s ease;
+  stroke-dasharray: 241 9999999;
+  stroke-dashoffset: 0;
+}
+
+.todo__checkbox input:checked ~ svg .path {
+  stroke-dasharray: 70.5096664428711 9999999;
+  stroke-dashoffset: -262.2723388671875;
+  stroke: #babfc1;
 }
 </style>

@@ -149,7 +149,14 @@ export default defineNuxtConfig({
       createSvgIconsPlugin({
         iconDirs: [path.resolve(process.cwd(), 'assets/svg')]
       })
-    ]
+    ],
+    css: {
+      preprocessorOptions: {
+        scss: {
+          api: 'modern-compiler' // or 'modern'
+        }
+      }
+    }
   },
 
   // srcDir: 'src/',

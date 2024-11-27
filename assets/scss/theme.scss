@@ -12,15 +12,17 @@ $themes: (
   light: (
     loginBg: #f0f5ff,
     boxBg: rgba(22, 30, 40, 0.35),
-    textColor: #333,
-    hdBoxBg: #fff
+    textColor: #eee,
+    hdBoxBg: #fff,
+    todoBg: #4394bf
   ),
   dark: (
     loginBg: #282a36,
-    boxBg: #282a36,
+    boxBg: linear-gradient(359deg, #282a36 0%, #55586a 100%),
     bdColor: #f0f5ff,
-    textColor: #fff,
-    hdBoxBg: #ececed
+    textColor: #eee,
+    hdBoxBg: #ececed,
+    todoBg: #626366
   )
 );
 
@@ -33,12 +35,12 @@ $curTheme: light;
     html[data-theme='#{$key}'] & {
       @content;
       @if $key == 'default' {
-        @media (prefers-color-scheme: dark) {
-          background: getVar('boxBg', 'dark');
-        }
-        @media (prefers-color-scheme: light) {
-          background: getVar('boxBg', 'light');
-        }
+        // @media (prefers-color-scheme: dark) {
+        //   background: getVar('boxBg', 'dark');
+        // }
+        // @media (prefers-color-scheme: light) {
+        //   background: getVar('boxBg', 'light');
+        // }
       }
     }
   }
