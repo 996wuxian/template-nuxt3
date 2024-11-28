@@ -1,52 +1,76 @@
 <template>
-  <div class="page page-filter">
-    <div class="fixed right-10px top-10px">
-      <CommonSwitch v-if="themeValue" v-model="themeValue" />
+  <div class="project__list">
+    <div v-for="(item, index) in listData" :key="index" class="project__item" @click="linkTo(item)">
+      <img :src="item.img" alt="" />
+
+      <n-tooltip trigger="hover">
+        <template #trigger>
+          {{ item.title.substring(0, 7) + '...' }}
+        </template>
+        {{ item.title }}
+      </n-tooltip>
     </div>
-    <div class="content">
-      <div class="content__left">
-        <Todo />
-        <MessageBoard />
-      </div>
+    <div class="w-60px h-60px rd-8px theme-page flex-center">
+      <svg-icon name="add" style="width: 20px; height: 20px" class="cursor-pointer" />
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import MessageBoard from './components/Message-board.vue'
-import Todo from './components/Todo.vue'
-import { useThemeStore } from '@/stores/theme'
-const useTheme = useThemeStore()
-
-const themeValue = ref()
-
-watch(
-  () => themeValue.value,
-  val => {
-    useTheme.setTheme(val)
-  }
-)
-
-onMounted(() => {
-  themeValue.value = useTheme.theme
-})
-
+import image from '@/assets/imgs/image.png'
+import image2 from '@/assets/imgs/image2.jpg'
 const { awesome } = useAppConfig()
-definePageMeta({ layout: 'page' })
+definePageMeta({ layout: 'home' })
 useHead({ titleTemplate: '首页', title: awesome?.name || 'text' })
+
+const listData = ref([
+  {
+    id: 0,
+    title: 'template-admin',
+    link: 'https://github.com/996wuxian/template-admin',
+    url: '',
+    img: image
+  },
+  {
+    id: 0,
+    title: 'template-admin',
+    link: 'https://github.com/996wuxian/template-nest',
+    url: '',
+    img: image2
+  }
+])
+
+const linkTo = (item: any) => {
+  window.open(item.link)
+}
 </script>
 
-<style scoped>
-.page {
-  @apply h-100vh w-100vw flex-center;
-  background: url('@/assets/imgs/bg-blue.svg') no-repeat center center;
-  background-size: cover;
+<style scoped lang="scss">
+.project__search,
+.project__content {
+  @apply flex flex-col b-rd-8px p-10px text-13px ml-10px;
+  box-sizing: border-box;
+  backdrop-filter: blur(80px) saturate(150%);
 }
 
-.content {
-  @apply w-100% h-[calc(100%-50px)] flex pt-50px;
+.project__search {
+  @apply flex-row items-center gap-5px py-15px;
 }
 
-.content__left {
+.project__list {
+  @apply p-20px grid justify-between grid-gap-40px;
+  grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+  box-sizing: border-box;
+}
+
+.project__item {
+  @apply w-60px flex flex-col gap-10px cursor-pointer;
+  white-space: nowrap;
+
+  img {
+    @apply w-60px h-60px b-rd-8px;
+    box-shadow: 1px 1px 10px rgba(0, 9, 255, 0.2);
+    object-fit: cover;
+  }
 }
 </style>

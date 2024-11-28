@@ -7,10 +7,14 @@
 <script setup lang="ts">
 import gsap from 'gsap'
 
+const props = defineProps<{
+  x?: number
+}>()
+
 const element = ref()
 
 onMounted(() => {
-  gsap.to(element.value, { duration: 1, x: '20%', opacity: 1 })
+  gsap.to(element.value, { duration: 1, x: props.x + 'px', opacity: 1 })
 })
 </script>
 

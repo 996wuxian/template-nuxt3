@@ -1,41 +1,39 @@
 <template>
-  <GsapFadeIn>
-    <div class="message theme-page">
-      <div class="message__title">
-        <i i-solar-chat-round-call-broken></i>
-        留言板
+  <div class="message theme-page">
+    <div class="message__title">
+      <i i-solar-chat-round-call-broken></i>
+      留言板
 
-        <div class="message__edit">
-          <i i-solar-pen-2-broken @click="showModal"></i>
-        </div>
+      <div class="message__edit">
+        <i i-solar-pen-2-broken @click="showModal"></i>
       </div>
-      <section class="message__list">
-        <article
-          v-for="item in msgList"
-          :key="item.id"
-          class="message__card"
-          @click="showMsgModal(item)"
-        >
-          <div class="card__inner">
-            <span class="card__pin"></span>
-            <!-- <div class="card-image">
+    </div>
+    <section class="message__list">
+      <article
+        v-for="item in msgList"
+        :key="item.id"
+        class="message__card"
+        @click="showMsgModal(item)"
+      >
+        <div class="card__inner">
+          <span class="card__pin"></span>
+          <!-- <div class="card-image">
                 <img src="https://assets.codepen.io/285131/hand-drawn-monster-milkshake.jpg" />
               </div> -->
-            <div class="card__meta">
-              {{ item.content }}
+          <div class="card__meta">
+            {{ item.content }}
 
-              <div>
-                {{ item.time }}
-                <i i-solar-chat-unread-broken></i>
-              </div>
+            <div>
+              {{ item.time }}
+              <i i-solar-chat-unread-broken></i>
             </div>
           </div>
-        </article>
+        </div>
+      </article>
 
-        <CommonEmpty v-if="msgList.length === 0" text="留言" />
-      </section>
-    </div>
-  </GsapFadeIn>
+      <CommonEmpty v-if="msgList.length === 0" text="留言" />
+    </section>
+  </div>
 
   <n-modal v-model:show="modalVisible">
     <n-card
@@ -314,7 +312,7 @@ const showMsgModal = (item: MsgItem) => {
 
 <style scoped lang="scss">
 .message {
-  @apply flex flex-col p-10px b-rd-8px min-w-250px pb-20px mt-20px min-h-300px;
+  @apply flex flex-col p-10px b-rd-8px  pb-20px mt-10px min-h-340px max-h-340px;
 }
 
 .message__title {
@@ -338,9 +336,9 @@ const showMsgModal = (item: MsgItem) => {
   box-sizing: border-box;
 }
 
-$c-gray-100: #fbf8f2;
+$c-gray-100: #79bee1;
 $c-gray-900: #1d1d1d;
-$c-yellow-300: #f8e0b1;
+$c-yellow-300: #3781b8;
 $rotation: -3deg;
 
 .message__list {
@@ -371,7 +369,7 @@ $rotation: -3deg;
 }
 
 .card__inner {
-  @apply flex flex-col b-rd-20px p-5px bg-#eee relative;
+  @apply flex flex-col b-rd-20px p-5px bg-#9ECCEE relative;
   border: 2px solid $c-gray-900;
   &:after {
     @apply block absolute w-95% h-100% bottom-[-9px] left-[calc(50%-47.5%)] b-rd-20px z-[-1];
