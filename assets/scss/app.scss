@@ -40,6 +40,13 @@
   }
 }
 
+.page-filter {
+  @include theme.useTheme() {
+    filter: theme.getVar('pageFilter');
+    transition: all 0.3s;
+  }
+}
+
 // reset
 html,
 body,

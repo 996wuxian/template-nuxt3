@@ -1,90 +1,91 @@
 <template>
-  <div class="todo theme-page">
-    <div class="todo__title">
-      <i i-solar-checklist-broken></i>
-      Todo
+  <GsapFadeIn>
+    <div class="todo theme-page">
+      <div class="todo__title">
+        <i i-solar-checklist-broken></i>
+        Todo
 
-      <div class="todo__date">
-        <n-popover placement="right-start">
-          <template #trigger>
-            <div class="flex items-center gap-5px h-25px">
-              Tuesday, March 12
-              <i i-solar-calendar-broken></i>
-            </div>
-          </template>
-          <div class="w-fit"><n-date-picker panel type="date" /></div>
-        </n-popover>
-      </div>
-    </div>
-    <div class="todo__day">
-      <div ref="slider" class="date-slider">
-        <TransitionGroup name="date-slider" tag="div" class="date-container">
-          <div
-            v-for="date in dateList"
-            :key="date.date"
-            class="date-item"
-            :class="{
-              active: date.date === selectedDate,
-              'last-day': date.isLastDay
-            }"
-            @click="selectDate(date.date)"
-          >
-            <div class="weekday">{{ date.weekday }}</div>
-            <div class="day">{{ date.day }}</div>
-          </div>
-        </TransitionGroup>
-      </div>
-    </div>
-    <div class="todo__list">
-      <CommonEmpty v-if="todoList.length === 0" text="待办事项" />
-      <div class="todo__items">
-        <div
-          v-for="item in todoList"
-          :key="item.id"
-          class="todo__item todoBg animate__animated"
-          :class="item.enter ? 'animate__fadeInLeft' : 'animate__fadeOutLeft'"
-        >
-          <div>
-            <div class="mt-2px">
-              <label class="todo__checkbox">
-                <input type="checkbox" @change="handleCheck(item)" />
-                <svg viewBox="0 0 64 64" height="15px" width="15px">
-                  <path
-                    d="M 0 16 V 56 A 8 8 90 0 0 8 64 H 56 A 8 8 90 0 0 64 56 V 8 A 8 8 90 0 0 56 0 H 8 A 8 8 90 0 0 0 8 V 16 L 32 48 L 64 16 V 8 A 8 8 90 0 0 56 0 H 8 A 8 8 90 0 0 0 8 V 56 A 8 8 90 0 0 8 64 H 56 A 8 8 90 0 0 64 56 V 16"
-                    pathLength="575.0541381835938"
-                    class="path"
-                  ></path>
-                </svg>
-              </label>
-            </div>
-            <n-collapse arrow-placement="right">
-              <n-collapse-item
-                :disabled="item.status"
-                title="todo"
-                name="1"
-                style="--n-title-text-color: #eee; --n-arrow-color: #eee"
-              >
-                <div class="color-#eee">可以</div>
-              </n-collapse-item>
-            </n-collapse>
-          </div>
-
-          <i i-solar-pen-2-broken @click="showModal"></i>
-
-          <n-popconfirm
-            :show-icon="false"
-            negative-text="取消"
-            positive-text="确认"
-            @positive-click="deleteTodo(item)"
-          >
+        <div class="todo__date">
+          <n-popover placement="right-start">
             <template #trigger>
-              <i i-solar-trash-bin-minimalistic-2-broken></i>
+              <div class="flex items-center gap-5px h-25px">
+                Tuesday, March 12
+                <i i-solar-calendar-broken></i>
+              </div>
             </template>
-            是否确认删除?
-          </n-popconfirm>
+            <div class="w-fit"><n-date-picker panel type="date" /></div>
+          </n-popover>
         </div>
       </div>
+      <div class="todo__day">
+        <div ref="slider" class="date-slider">
+          <TransitionGroup name="date-slider" tag="div" class="date-container">
+            <div
+              v-for="date in dateList"
+              :key="date.date"
+              class="date-item"
+              :class="{
+                active: date.date === selectedDate,
+                'last-day': date.isLastDay
+              }"
+              @click="selectDate(date.date)"
+            >
+              <div class="weekday">{{ date.weekday }}</div>
+              <div class="day">{{ date.day }}</div>
+            </div>
+          </TransitionGroup>
+        </div>
+      </div>
+      <div class="todo__list">
+        <CommonEmpty v-if="todoList.length === 0" text="待办事项" />
+        <div class="todo__items">
+          <div
+            v-for="item in todoList"
+            :key="item.id"
+            class="todo__item todoBg animate__animated"
+            :class="item.enter ? 'animate__fadeInLeft' : 'animate__fadeOutLeft'"
+          >
+            <div>
+              <div class="mt-2px">
+                <label class="todo__checkbox">
+                  <input type="checkbox" @change="handleCheck(item)" />
+                  <svg viewBox="0 0 64 64" height="15px" width="15px">
+                    <path
+                      d="M 0 16 V 56 A 8 8 90 0 0 8 64 H 56 A 8 8 90 0 0 64 56 V 8 A 8 8 90 0 0 56 0 H 8 A 8 8 90 0 0 0 8 V 16 L 32 48 L 64 16 V 8 A 8 8 90 0 0 56 0 H 8 A 8 8 90 0 0 0 8 V 56 A 8 8 90 0 0 8 64 H 56 A 8 8 90 0 0 64 56 V 16"
+                      pathLength="575.0541381835938"
+                      class="path"
+                    ></path>
+                  </svg>
+                </label>
+              </div>
+              <n-collapse arrow-placement="right">
+                <n-collapse-item
+                  :disabled="item.status"
+                  title="todo"
+                  name="1"
+                  style="--n-title-text-color: #eee; --n-arrow-color: #eee"
+                >
+                  <div class="color-#eee">可以</div>
+                </n-collapse-item>
+              </n-collapse>
+            </div>
 
+            <i i-solar-pen-2-broken @click="showModal"></i>
+
+            <n-popconfirm
+              :show-icon="false"
+              negative-text="取消"
+              positive-text="确认"
+              @positive-click="deleteTodo(item)"
+            >
+              <template #trigger>
+                <i i-solar-trash-bin-minimalistic-2-broken></i>
+              </template>
+              是否确认删除?
+            </n-popconfirm>
+          </div>
+        </div>
+      </div>
       <div class="todo__btn" @click="add">
         <div class="flex flex-col gap-10px">
           <span>总完成 : 20</span>
@@ -93,9 +94,9 @@
         <i i-solar-traffic-economy-broken></i>
       </div>
     </div>
-  </div>
+  </GsapFadeIn>
 
-  <n-modal v-model:show="editModalVisible">
+  <n-modal v-model:show="modalVisible">
     <n-card
       style="width: 600px"
       title="修改"
@@ -108,7 +109,7 @@
         <i
           i-solar-close-circle-broken
           class="cursor-pointer w-20px h-20px"
-          @click="editModalVisible = false"
+          @click="modalVisible = false"
         >
         </i>
       </template>
@@ -141,7 +142,7 @@
 </template>
 
 <script setup lang="ts">
-import gsap from 'gsap'
+// import gsap from 'gsap'
 
 interface TodoItem {
   id?: number
@@ -176,10 +177,10 @@ const deleteTodo = (item: TodoItem) => {
   }, 500)
 }
 
-const editModalVisible = ref(false)
+const modalVisible = ref(false)
 
 const showModal = () => {
-  editModalVisible.value = true
+  modalVisible.value = true
 }
 
 const formData = ref<TodoItem>({})
@@ -250,7 +251,7 @@ const selectDate = (date: number) => {
 
 // 添加触摸滑动功能
 onMounted(() => {
-  gsap.to('.todo', { duration: 1, x: '20%', opacity: 1 })
+  // gsap.to('.todo', { duration: 1, x: '20%', opacity: 1 })
 
   if (!slider.value) return
 
@@ -274,11 +275,7 @@ onMounted(() => {
 
 <style scoped lang="scss">
 .todo {
-  @apply flex flex-col p-10px b-rd-8px min-w-250px pb-20px;
-  flex: 1 1 0%;
-  background: rgba(22, 30, 40, 0.35);
-  backdrop-filter: blur(80px) saturate(150%);
-  opacity: 0;
+  @apply flex flex-col p-10px b-rd-8px min-w-250px pb-20px min-h-255px;
 }
 
 .todo__title {
@@ -365,7 +362,7 @@ onMounted(() => {
 }
 
 .todo__list {
-  @apply mt-10px;
+  @apply mt-10px flex flex-col;
 }
 
 .todo__items {
@@ -408,7 +405,7 @@ onMounted(() => {
 }
 
 .todo__btn {
-  @apply w-100% mt-20px b-rd-10px cursor-pointer flex justify-between items-center text-14px;
+  @apply w-100% b-rd-10px cursor-pointer flex justify-between items-center text-14px mt-auto pt-20px;
   box-shadow: 0 2px 10px rgba(30, 93, 164, 0.2);
 
   i {

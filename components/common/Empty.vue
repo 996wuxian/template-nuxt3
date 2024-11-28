@@ -24,11 +24,11 @@ defineProps({
   user-select: none;
 
   img {
-    width: 150px;
+    width: 200px;
   }
 
   span {
-    @apply color-#eee text-12px;
+    @apply color-#eee text-13px;
   }
 }
 </style>

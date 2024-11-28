@@ -1,17 +1,19 @@
 <template>
-  <div class="page">
+  <div class="page page-filter">
     <div class="fixed right-10px top-10px">
       <CommonSwitch v-if="themeValue" v-model="themeValue" />
     </div>
     <div class="content">
       <div class="content__left">
         <Todo />
+        <MessageBoard />
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import MessageBoard from './components/Message-board.vue'
 import Todo from './components/Todo.vue'
 import { useThemeStore } from '@/stores/theme'
 const useTheme = useThemeStore()
