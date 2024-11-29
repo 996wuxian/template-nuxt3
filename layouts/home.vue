@@ -5,7 +5,7 @@
       <CommonSwitch v-if="themeValue" v-model="themeValue" />
     </div>
     <div class="w-full h-full">
-      <GsapFadeIn :x="150" class="w-[calc(100%-300px)] h-100%">
+      <GsapFadeInLr :x="150" class="w-[calc(100%-300px)] h-100%">
         <div class="content">
           <div class="flex-1 max-w-270px">
             <Todo />
@@ -29,7 +29,7 @@
             <Music />
           </div>
         </div>
-      </GsapFadeIn>
+      </GsapFadeInLr>
 
       <div class="page__nav">
         <n-tooltip trigger="hover">
@@ -51,7 +51,7 @@
         </n-tooltip>
         <n-tooltip trigger="hover">
           <template #trigger>
-            <div>
+            <div @click="toPage('know')">
               <i i-solar-book-bookmark-bold></i>
             </div>
           </template>
@@ -59,7 +59,7 @@
         </n-tooltip>
         <n-tooltip trigger="hover">
           <template #trigger>
-            <div>
+            <div @click="toPage('picture')">
               <i i-solar-gallery-round-bold-duotone></i>
             </div>
           </template>
@@ -67,7 +67,7 @@
         </n-tooltip>
         <n-tooltip trigger="hover">
           <template #trigger>
-            <div>
+            <div @click="toPage('music')">
               <i i-solar-music-note-3-bold></i>
             </div>
           </template>

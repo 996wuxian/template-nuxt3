@@ -247,8 +247,6 @@ const selectDate = (date: number) => {
 
 // 添加触摸滑动功能
 onMounted(() => {
-  // gsap.to('.todo', { duration: 1, x: '20%', opacity: 1 })
-
   if (!slider.value) return
 
   let startX = 0
