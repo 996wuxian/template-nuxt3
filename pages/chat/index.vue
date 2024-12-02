@@ -154,7 +154,7 @@ useHead({ titleTemplate: '首页', title: awesome?.name || 'text' })
 }
 
 .chat__block {
-  @apply mt-20px flex flex-col gap-20px;
+  @apply mt-20px flex flex-col gap-10px;
 }
 
 .chat__item {

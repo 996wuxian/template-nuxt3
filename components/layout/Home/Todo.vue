@@ -5,7 +5,7 @@
       Todo
 
       <div class="todo__date">
-        <n-popover placement="right-start">
+        <n-popover placement="right-start" trigger="click">
           <template #trigger>
             <div class="flex items-center gap-5px h-25px">
               Tuesday, March 12

@@ -31,49 +31,51 @@
         </div>
       </GsapFadeInLr>
 
-      <div class="page__nav">
-        <n-tooltip trigger="hover">
-          <template #trigger>
-            <div @click="toPage('home')">
-              <i i-solar-layers-bold-duotone></i>
-            </div>
-          </template>
-          首页
-        </n-tooltip>
+      <GsapFadeInLr>
+        <div class="page__nav">
+          <n-tooltip trigger="hover">
+            <template #trigger>
+              <div @click="toPage('home')">
+                <i i-solar-layers-bold-duotone></i>
+              </div>
+            </template>
+            首页
+          </n-tooltip>
 
-        <n-tooltip trigger="hover">
-          <template #trigger>
-            <div @click="toPage('chat')">
-              <i i-solar-chat-square-bold-duotone></i>
-            </div>
-          </template>
-          聊天室
-        </n-tooltip>
-        <n-tooltip trigger="hover">
-          <template #trigger>
-            <div @click="toPage('know')">
-              <i i-solar-book-bookmark-bold></i>
-            </div>
-          </template>
-          知识库
-        </n-tooltip>
-        <n-tooltip trigger="hover">
-          <template #trigger>
-            <div @click="toPage('picture')">
-              <i i-solar-gallery-round-bold-duotone></i>
-            </div>
-          </template>
-          图片
-        </n-tooltip>
-        <n-tooltip trigger="hover">
-          <template #trigger>
-            <div @click="toPage('music')">
-              <i i-solar-music-note-3-bold></i>
-            </div>
-          </template>
-          音乐
-        </n-tooltip>
-      </div>
+          <n-tooltip trigger="hover">
+            <template #trigger>
+              <div @click="toPage('chat')">
+                <i i-solar-chat-square-bold-duotone></i>
+              </div>
+            </template>
+            聊天室
+          </n-tooltip>
+          <n-tooltip trigger="hover">
+            <template #trigger>
+              <div @click="toPage('know')">
+                <i i-solar-book-bookmark-bold></i>
+              </div>
+            </template>
+            知识库
+          </n-tooltip>
+          <n-tooltip trigger="hover">
+            <template #trigger>
+              <div @click="toPage('picture')">
+                <i i-solar-gallery-round-bold-duotone></i>
+              </div>
+            </template>
+            图片
+          </n-tooltip>
+          <n-tooltip trigger="hover">
+            <template #trigger>
+              <div @click="toPage('music')">
+                <i i-solar-music-note-3-bold></i>
+              </div>
+            </template>
+            音乐
+          </n-tooltip>
+        </div>
+      </GsapFadeInLr>
     </div>
   </div>
 </template>
