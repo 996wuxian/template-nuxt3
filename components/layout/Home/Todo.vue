@@ -36,7 +36,7 @@
       </div>
     </div>
     <div class="todo__list">
-      <CommonEmpty v-if="todoList.length === 0" text="待办事项" />
+      <CommonEmpty v-if="todoList.length === 0" text="待办事项" class="mt-20px" />
       <div class="todo__items">
         <div
           v-for="item in todoList"
@@ -85,12 +85,12 @@
         </div>
       </div>
     </div>
-    <div class="todo__btn" @click="add">
+    <div class="todo__btn">
       <div class="flex flex-col gap-10px">
         <span>总完成 : 20</span>
         <span>未完成 : 10</span>
       </div>
-      <i i-solar-traffic-economy-broken></i>
+      <i i-solar-traffic-economy-broken @click="add"></i>
     </div>
   </div>
 
@@ -400,11 +400,11 @@ onMounted(() => {
 }
 
 .todo__btn {
-  @apply w-100% b-rd-10px cursor-pointer flex justify-between items-center text-14px mt-auto pt-20px;
+  @apply w-100% b-rd-10px  flex justify-between items-center text-14px mt-auto pt-20px;
   box-shadow: 0 2px 10px rgba(30, 93, 164, 0.2);
 
   i {
-    @apply w-30px h-30px color-#eee;
+    @apply w-30px h-30px color-#eee cursor-pointer;
     transition: all 0.3s;
 
     &:hover {

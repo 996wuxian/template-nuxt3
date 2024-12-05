@@ -107,7 +107,7 @@ useHead({ titleTemplate: '首页', title: awesome?.name || 'text' })
 }
 
 .chat__nav {
-  @apply w-50px b-rd-20px flex flex-col items-center p-10px gap-row-20px pt-30px;
+  @apply w-40px b-rd-10px flex flex-col items-center p-10px gap-row-20px pt-30px;
   border-right: 1px solid rgba(238, 238, 238, 0.1);
 
   div {
@@ -131,7 +131,7 @@ useHead({ titleTemplate: '首页', title: awesome?.name || 'text' })
 }
 
 .chat__content {
-  @apply flex-1 p-10px rd-20px flex;
+  @apply flex-1 p-10px rd-10px flex;
 }
 
 .chat__list {

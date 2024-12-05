@@ -7,7 +7,7 @@
       </div>
 
       <div class="block">
-        <div v-for="item in 5" :key="item" class="block__item">
+        <div v-for="item in 10" :key="item" class="block__item">
           <div class="w-100%">
             <div class="flex items-center justify-between">
               <span>丑奴儿</span>
@@ -21,41 +21,84 @@
         </div>
       </div>
     </div>
-    <div class="music_content">
-      <main>
-        <div class="player">
-          <div class="record">
-            <div class="label">
-              <h2>music</h2>
-            </div>
-            <div class="spindle"></div>
+    <div class="music__content">
+      <div class="player" :class="{ 'is-playing': isPlaying, 'is-stopped': !isPlaying }">
+        <div class="record">
+          <div class="label">
+            <h2>我们</h2>
           </div>
-          <div class="arm-container">
-            <div class="knob weight bottom"></div>
-            <div class="arm"></div>
-            <div class="knob weight top">
-              <button class="play">
-                <div class="tooltip">click on this</div>
-              </button>
-            </div>
-          </div>
-          <div class="speaker">
-            <div class="hole"></div>
-            <div class="hole"></div>
-            <div class="hole"></div>
-            <div class="hole"></div>
-            <div class="hole"></div>
-            <div class="hole"></div>
-            <div class="hole"></div>
-            <div class="hole"></div>
-          </div>
-          <div class="knob volume bottom">
-            <div class="down"></div>
-            <div class="up"></div>
-          </div>
-          <div class="knob volume top"></div>
+          <div class="spindle"></div>
         </div>
-      </main>
+        <div class="arm-container">
+          <div class="knob weight bottom"></div>
+          <div class="arm"></div>
+          <div class="knob weight top">
+            <button class="play" @click="togglePlay"></button>
+          </div>
+        </div>
+        <div class="speaker">
+          <div class="hole"></div>
+          <div class="hole"></div>
+          <div class="hole"></div>
+          <div class="hole"></div>
+          <div class="hole"></div>
+          <div class="hole"></div>
+          <div class="hole"></div>
+          <div class="hole"></div>
+        </div>
+        <div class="knob volume bottom">
+          <div class="down"></div>
+          <div class="up"></div>
+        </div>
+        <div class="knob volume top"></div>
+      </div>
+      <div class="music__lyric flex flex-col gap-20px max-h-300px overflow-auto w-80% text-center">
+        <div v-for="item in 20" :key="item" class="lyric__item text-14px ml-20px">
+          我听着那少年的声音
+        </div>
+      </div>
+      <div class="music__time">
+        <p class="musicTime__current">00:12</p>
+        <div class="flex flex-col items-center gap-5px text-15px">
+          我们
+          <span>草东没有派对</span>
+        </div>
+        <p class="musicTime__last">04:48</p>
+      </div>
+      <div id="progress" class="music__bar">
+        <div id="length" class="music__bar__length">
+          <div class="button music__bar__circle">
+            <div class="music__bar__circlePoint"></div>
+          </div>
+        </div>
+      </div>
+      <div class="flex mt-20px items-center text-20px justify-between w-80%">
+        <div class="flex cursor-pointer">
+          <i i-solar-repeat-line-duotone></i>
+          <i v-show="false" i-solar-repeat-one-line-duotone></i>
+        </div>
+
+        <div class="music__button">
+          <span>
+            <i i-solar-skip-previous-bold></i>
+          </span>
+        </div>
+        <div class="music__button">
+          <span>
+            <i i-solar-play-bold></i>
+            <i v-show="false" i-solar-pause-bold></i>
+          </span>
+        </div>
+        <div class="music__button">
+          <span>
+            <i i-solar-skip-next-bold></i>
+          </span>
+        </div>
+        <div class="flex cursor-pointer">
+          <i i-solar-volume-loud-broken></i>
+          <i v-show="false" i-solar-volume-cross-broken></i>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -64,6 +107,12 @@
 const { awesome } = useAppConfig()
 definePageMeta({ layout: 'home' })
 useHead({ titleTemplate: '首页', title: awesome?.name || 'text' })
+
+const isPlaying = ref(false)
+
+const togglePlay = () => {
+  isPlaying.value = !isPlaying.value
+}
 </script>
 
 <style scoped lang="scss">
@@ -82,7 +131,7 @@ useHead({ titleTemplate: '首页', title: awesome?.name || 'text' })
 }
 
 .block {
-  @apply mt-20px flex flex-col gap-10px;
+  @apply mt-20px flex flex-col gap-10px h-[calc(100%-50px)] overflow-auto pb-10px;
 }
 
 .block__item {
@@ -110,19 +159,14 @@ $color-speaker: #262626;
 $color-spindle: #ededed;
 
 @mixin pos($position: absolute) {
+  @apply top-0 right-0 bottom-0 left-0 m-auto;
   position: $position;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  margin: auto;
 }
 
 @mixin circle {
   &:after {
+    @apply block pb-100%;
     content: '';
-    display: block;
-    padding-bottom: 100%;
   }
 }
 
@@ -140,54 +184,31 @@ $color-spindle: #ededed;
   background: linear-gradient(to right, rgba(242, 242, 242, 1) 0%, rgba(254, 254, 254, 1) 100%);
 }
 
-* {
-  box-sizing: border-box;
-}
-
-body {
-  overflow: hidden;
-  background-color: $color-bg;
-  padding: 0;
-  margin: 0;
-  font-family: 'Dosis', sans-serif;
-}
-
-main {
-  @include pos;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  height: 100%;
-  max-width: 950px;
+.music__content {
+  @apply box-border w-full h-full flex items-center flex-col justify-center;
 }
 
 .player {
-  position: relative;
-  width: 60%;
+  @apply relative w-60% rd-25% box-border w-180px h-180px my-20px;
   background-color: $color-player;
   @include bg-lines(darken($color-player, 5%), $color-player, 1px, 10%, 90deg);
   border: 1px solid $color-player-border;
-  border-radius: 25%;
   box-shadow:
     inset rgba(white, 1) 0 0 2px 1px,
     inset rgba(black, 0.06) 0 0 48px,
     rgba(black, 0.2) 0 15px 30px -10px;
   @include circle;
   &:before {
+    @apply w-full h-full rd-25%;
     content: '';
     @include pos;
-    width: 100%;
-    height: 100%;
     @include bg-lines(darken($color-player, 2%), transparent, 1px, 4px, -45deg);
-    border-radius: 25%;
   }
 }
 
 .record {
+  @apply w-70% h-70% box-border rd-100%;
   @include pos;
-  width: 70%;
-  height: 70%;
   background-color: $color-record;
   background: linear-gradient(
     to right,
@@ -196,7 +217,6 @@ main {
     rgba(97, 97, 97, 1) 60%,
     rgba(31, 30, 31, 1) 100%
   );
-  border-radius: 100%;
   box-shadow:
     inset darken($color-record, 20%) 0 0 0 1px,
     inset rgba(white, 0.3) 0 0 0 2px;
@@ -215,8 +235,7 @@ main {
     border-radius: 100%;
   }
   &:before {
-    width: 88%;
-    height: 88%;
+    @apply w-88% h-88%;
     background-color: lighten($color-record, 10%);
     box-shadow:
       inset darken($color-record, 10%) 0 0 0 1px,
@@ -224,8 +243,7 @@ main {
       inset darken($color-record, 5%) 0 0 0 3px;
   }
   &:after {
-    width: 48%;
-    height: 48%;
+    @apply w-48% h-48%;
     background-color: $color-record;
     box-shadow:
       inset rgba(black, 0.2) 0 0 0 1px,
@@ -235,64 +253,41 @@ main {
 }
 
 .record .label {
+  @apply w-36% h-36% px-6% py-4.5% text-center rd-100% box-border z-2;
   @include pos;
-  width: 36%;
-  height: 36%;
-  padding: 4.5% 6%;
   background-color: $color-record-label;
   @include bg-lines;
-  text-align: center;
-  border-radius: 100%;
-  z-index: 2;
   &:before,
   &:after {
+    @apply rd-100% z-[-1];
     content: '';
     @include pos;
-    border-radius: 100%;
-    z-index: -1;
   }
   &:before {
-    width: 35%;
-    height: 35%;
+    @apply w-35% h-35%;
     background-color: darken($color-record-label, 6%);
   }
   &:after {
-    width: 30%;
-    height: 30%;
+    @apply w-30% h-30%;
     @include bg-lines;
   }
   h2 {
-    font-weight: bold;
-  }
-  h2,
-  h3 {
-    color: $color-record-label-text;
-    z-index: 4;
-    color: #fff;
+    @apply font-700 text-9px z-4 color-#fff;
   }
   p {
-    position: absolute;
-    top: 50%;
-    right: 10%;
-    bottom: 0;
-    margin: auto;
+    @apply absolute top-50% right-10% bottom-0 m-auto;
   }
 }
 
 .spindle {
+  @apply w-25% h-25% bg-black rd-100% z-3;
   @include pos;
-  width: 25%;
-  height: 25%;
-  background-color: black;
-  border-radius: 100%;
   box-shadow: rgba(black, 0.1) 0 0 12px 2px;
   transform: scale(0.2);
-  z-index: 3;
   &:before {
+    @apply w-70% h-70% rd-100% z-4;
     content: '';
     @include pos;
-    width: 70%;
-    height: 70%;
     background-color: $color-spindle;
     background: linear-gradient(
       left,
@@ -301,45 +296,31 @@ main {
       rgba(219, 219, 219, 1) 51%,
       rgba(254, 254, 254, 1) 100%
     );
-    border-radius: 100%;
-    z-index: 4;
   }
 }
 
 .arm-container {
-  position: absolute;
-  width: 30%;
-  height: 5%;
-  top: 15%;
-  right: 19%;
+  @apply absolute w-30% h-5% top-15% right-19%;
   transform-origin: 94.2%;
   transform: rotate(-120deg);
 }
 
 .arm {
-  position: absolute;
-  top: 0;
-  right: -25%;
-  width: 100%;
-  height: 100%;
+  @apply absolute top-0 right-[-25%] w-full h-full rd-[12px] z-[2];
   background-color: $color-arm;
   @include gradient-knob;
   border: 1px solid darken($color-arm, 4%);
-  border-radius: 12px;
   box-shadow:
     inset white 0 -1px 2px,
     inset rgba(black, 0.1) -2px -4px 12px,
     rgba(black, 0.06) -4px 4px 6px;
-  z-index: 2;
 }
 
 .knob {
-  position: absolute;
+  @apply absolute rd-full z-[2];
   background-color: $color-knob;
-  border-radius: 100%;
   @include circle;
   transform: translateZ(0);
-  z-index: 2;
   &.bottom {
     background-color: darken($color-knob, 6%);
     border: 1px solid darken($color-knob, 8%);
@@ -358,138 +339,70 @@ main {
 
 .weight {
   &.bottom {
-    top: -61%;
-    right: -13.5%;
-    width: 38%;
+    @apply top-[-61%] right-[-13.5%] w-38%;
   }
   &.top {
-    width: 30%;
-    top: -40%;
-    right: -9.5%;
+    @apply top-[-40%] right-[-9.5%] w-30%;
     &:before {
+      @apply absolute top-35% right-245% w-25% h-25% rd-100% z-4;
       content: '';
-      position: absolute;
-      top: 35%;
-      right: 245%;
-      width: 25%;
-      height: 25%;
       background-color: lighten($color-record-label, 5%);
       border: 1px solid darken($color-record-label, 2%);
-      border-radius: 100%;
       box-shadow: inset rgba(white, 0.6) 2px 2px 4px;
       transform: translateZ(0);
-      z-index: 4;
     }
   }
 }
 
 button.play {
+  @apply w-full h-full b-none bg-transparent rd-100% outline-none cursor-pointer;
   @include pos;
-  width: 100%;
-  height: 100%;
-  background-color: transparent;
-  border: none;
-  border-radius: 100%;
   font-family: 'Dosis', sans-serif;
-  cursor: pointer;
-  outline: none;
   transform: rotate(120deg);
-}
-
-.tooltip {
-  position: absolute;
-  bottom: 150%;
-  left: 50%;
-  margin-left: -60px;
-  padding: 8px 20px;
-  width: 120px;
-  color: $color-player;
-  background: $color-record;
-  text-transform: uppercase;
-  text-align: center;
-  border-radius: 2px;
-  opacity: 0;
-  transform: translateY(-60%);
-  z-index: 1;
-  &:after {
-    content: '';
-    @include pos;
-    top: 100%;
-    width: 0;
-    height: 0;
-    border-style: solid;
-    border-width: 10px 12px 0 12px;
-    border-color: $color-record transparent transparent transparent;
-  }
 }
 
 .volume {
   &.bottom {
-    bottom: 13.5%;
-    left: 14%;
-    width: 11%;
+    @apply bottom-[13.5%] left-14% w-11%;
     transform: translateZ(0);
     div {
-      position: absolute;
-      width: 20%;
-      height: 5%;
+      @apply absolute w-20% h-5%;
       background-color: darken($color-knob, 10%);
       transform: translateZ(0);
       &:first-child {
-        bottom: 110%;
-        right: 80%;
+        @apply bottom-110% right-80%;
       }
       &:last-child {
-        top: 85%;
-        left: 105%;
+        @apply top-85% left-105%;
         &:after {
+          @apply w-100% h-100% bg-inherit;
           content: '';
           @include pos;
-          width: 100%;
-          height: 100%;
-          background-color: inherit;
           transform: rotate(90deg);
         }
       }
     }
   }
   &.top {
-    bottom: 14.8%;
-    left: 15.3%;
-    width: 8.5%;
+    @apply bottom-14.8% left-15.3% w-8.5%;
     &:before {
+      @apply bottom-55% w-5% h-25% rd-24px;
       content: '';
       @include pos;
-      bottom: 55%;
-      width: 5%;
-      height: 25%;
       background-color: darken($color-knob, 10%);
-      border-radius: 24px;
     }
   }
 }
 
 .speaker {
-  position: absolute;
-  right: 5%;
-  bottom: 4%;
-  width: 20%;
+  @apply absolute right-5% bottom-4% w-20%;
   @include circle;
   transform: scale(0.4);
   .hole {
-    margin-right: 12%;
-    margin-bottom: 12%;
-    width: 13%;
+    @apply mr-12% mb-12% w-13% float-left rd-100%;
     @include circle;
-    float: left;
     background-color: $color-speaker;
-    border-radius: 100%;
   }
-}
-
-// Animations
-.tooltip {
-  animation: tooltip 0.4s 0.5s ease-out forwards;
 }
 
 .record {
@@ -497,7 +410,7 @@ button.play {
     animation: spin-on 4s 0.51s linear infinite;
   }
   .is-stopped & {
-    animation: spin-off 1s ease-out forwards;
+    animation: spin-off 0.51s ease-out forwards;
   }
 }
 
@@ -509,6 +422,57 @@ button.play {
     animation:
       arm-on 0.5s 0.01s ease-out forwards,
       arm-playing 3s 0.51s linear infinite;
+  }
+}
+
+.music__time {
+  @apply w-80% flex justify-between text-12px color-#a3a496 items-end mt-20px mb-15px;
+}
+
+.music__bar {
+  @apply w-78% h-4px rd-5px bg-#f5f6e7 cursor-pointer relative;
+
+  &__length {
+    @apply block w-0% bg-#9eccee h-100% rd-5px;
+    transition: width linear 200ms;
+  }
+  &__circle {
+    @apply absolute left-0 top-0 w-24px h-24px block rd-50% flex-center mt-1px;
+    transform: translate(-50%, -50%);
+
+    &::before {
+      @apply absolute left-50% top-50% bg-#f5f6e7 w-60% h-60% inline-block rd-50% z-[-1];
+      transform: translate(-50%, -50%);
+      content: '';
+      box-shadow: 0px 1px 5px #9eccee;
+      background-size: 50%;
+      background-repeat: no-repeat;
+    }
+  }
+  &__circlePoint {
+    @apply w-7px h-7px rd-50% bg-#154994;
+  }
+}
+
+.music__button {
+  @apply flex-center w-40px h-40px rd-50% border-none cursor-pointer text-15px;
+  background: #4b5574;
+  transition: all 0.3s;
+
+  span {
+    @apply flex-center border-box w-100% h-100% rd-50% bg-#164995;
+    // border: 2px solid #2b6188;
+    transform: translateY(-2px);
+    transition: transform 0.3s ease;
+  }
+
+  &:hover span {
+    transform: translateY(-4px);
+    transition: all 0.3s;
+  }
+  &:active span {
+    transform: translateY(0);
+    transition: all 0.3s;
   }
 }
 

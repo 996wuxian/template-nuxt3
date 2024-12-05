@@ -8,7 +8,25 @@
         <i i-solar-pen-2-broken @click="showModal"></i>
       </div>
     </div>
-    <section class="message__list">
+    <div class="mt-10px h-[calc(100%-20px)]">
+      <div class="flex flex-col gap-10px overflow-auto h-full">
+        <div
+          v-for="item in msgList"
+          :key="item.id"
+          class="bg-#3B79A9 px-5px py-10px rd-10px opacity-60 hover:opacity-100 transition-opacity cursor-pointer text-14px"
+          @click="showMsgModal(item)"
+        >
+          {{ item.content }}
+
+          <div class="flex justify-between mt-10px text-12px">
+            {{ item.time }}
+            <i i-solar-chat-unread-broken></i>
+          </div>
+        </div>
+      </div>
+      <CommonEmpty v-if="msgList.length === 0" text="留言" />
+    </div>
+    <!-- <section class="message__list">
       <article
         v-for="item in msgList"
         :key="item.id"
@@ -17,9 +35,6 @@
       >
         <div class="card__inner">
           <span class="card__pin"></span>
-          <!-- <div class="card-image">
-                <img src="https://assets.codepen.io/285131/hand-drawn-monster-milkshake.jpg" />
-              </div> -->
           <div class="card__meta">
             {{ item.content }}
 
@@ -32,7 +47,7 @@
       </article>
 
       <CommonEmpty v-if="msgList.length === 0" text="留言" />
-    </section>
+    </section> -->
   </div>
 
   <n-modal v-model:show="modalVisible">
@@ -271,6 +286,11 @@ const msgList = ref<MsgItem[]>([
     id: 2,
     content: '你好，今天还是继续学习vue3',
     time: '2022-11-27'
+  },
+  {
+    id: 2,
+    content: '你好，今天还是继续学习vue3',
+    time: '2022-11-27'
   }
 ])
 
@@ -312,7 +332,7 @@ const showMsgModal = (item: MsgItem) => {
 
 <style scoped lang="scss">
 .message {
-  @apply flex flex-col p-10px b-rd-8px  pb-20px mt-10px min-h-340px max-h-340px;
+  @apply flex flex-col p-10px b-rd-8px  pb-20px mt-10px h-340px;
 }
 
 .message__title {
@@ -433,8 +453,8 @@ $rotation: -3deg;
 }
 
 .hart__btn {
-  @apply cursor-pointer flex-center p-5px b-none b-rd-50%;
-  box-shadow: rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+  @apply cursor-pointer flex-center p-5px b-none b-rd-50% bg-#eee;
+  // box-shadow: rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
   transition:
     transform 400ms cubic-bezier(0.68, -0.55, 0.27, 2.5),
     border-color 400ms ease-in-out,

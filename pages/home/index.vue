@@ -1,7 +1,9 @@
 <template>
   <div class="project__list">
     <div v-for="(item, index) in listData" :key="index" class="project__item" @click="linkTo(item)">
-      <img :src="item.img" alt="" />
+      <div class="p-10px bg-#3B79A9 rd-10px w-50px h-50px hover:bg-#538DB4 transition-all">
+        <img :src="item.img" alt="" class="w-full h-full rd-5px" />
+      </div>
 
       <n-tooltip trigger="hover">
         <template #trigger>
@@ -68,8 +70,7 @@ const linkTo = (item: any) => {
   white-space: nowrap;
 
   img {
-    @apply w-60px h-60px b-rd-8px;
-    box-shadow: 1px 1px 10px rgba(0, 9, 255, 0.2);
+    box-shadow: 1px 1px 10px #327ca7;
     object-fit: cover;
   }
 }
