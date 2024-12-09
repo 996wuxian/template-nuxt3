@@ -1,6 +1,6 @@
 # Nuxt3-template
 
-一个nuxt3模板, 包含nprogress进度条, 请求封装, 布局, pinia, eslint, prettier, sass 等基建配置
+一个nuxt3模板, 包含nprogress进度条, 请求封装, 布局, pinia, eslint, prettier, sass, unocss等基建配置
 
 ## Setup
 
