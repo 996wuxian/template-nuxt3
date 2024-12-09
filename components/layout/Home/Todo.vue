@@ -181,6 +181,20 @@ const showModal = () => {
 
 const formData = ref<TodoItem>({})
 
+watch(
+  () => todoList.value.length,
+  async (newLength, oldLength) => {
+    if (newLength > oldLength) {
+      // 等待 DOM 更新完成
+      await nextTick()
+      // 获取最后一个元素并滚动
+      const items = document.querySelector('.todo__items')
+      const lastItem = items?.lastElementChild
+      lastItem?.scrollIntoView({ behavior: 'smooth' })
+    }
+  }
+)
+
 const slider = ref<HTMLElement | null>(null)
 const selectedDate = ref(new Date().getDate())
 
