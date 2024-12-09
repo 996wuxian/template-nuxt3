@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    content
+    pc
 
     <div @click="toAbout">to about</div>
   </div>
